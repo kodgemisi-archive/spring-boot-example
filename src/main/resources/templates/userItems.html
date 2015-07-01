@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>User</title>
+</head>
+<body>
+<!--<div sec:authorize="isAnonymous()">-->
+    <!--<meta http-equiv="refresh" content="0;url=/" />-->
+<!--</div>-->
+
+<div th:each="entry : ${items}" th:with="itemList=${entry.value}">
+    <p><strong th:text="${entry.key} + ': ' + ${itemList.size()}"></strong></p>
+    <table>
+        <tr>
+            <th>Item code</th>
+            <th>Item type</th>
+        </tr>
+        <tr th:each="item : ${itemList}">
+            <td th:text="${item.inventoryCode}">Item code</td>
+            <td th:text="${item.type}">Item type</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

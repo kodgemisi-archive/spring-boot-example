@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Inventory Home</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+
+<div sec:authorize="isAnonymous()">
+    <p>Click <a th:href="@{/login}">here</a> to login.</p>
+    <p>Click <a th:href="@{/register}">here</a> to register.</p>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Log Out"/>
+    </form>
+    <p>Click <a th:href="@{/items}">here</a> to see items.</p>
+    <p>Click <a th:href="@{/logs}">here</a> to see logs.</p>
+</div>
+</body>
+</html>

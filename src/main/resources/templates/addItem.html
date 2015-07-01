@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Add Item</title>
+</head>
+<body>
+
+<form th:action="@{/items}" th:object="${itemForm}" th:method="post">
+    <div><label> Item Type: <input type="text" th:field="*{itemType}" /> </label></div>
+    <div><label> Amount: <input type="text" th:field="*{amount}" /> </label></div>
+    <div><input type="submit" value="Add"/></div>
+</form>
+</body>
+</html>

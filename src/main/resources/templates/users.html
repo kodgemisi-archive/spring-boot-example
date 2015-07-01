@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Jobs</title>
+</head>
+<body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
+<table>
+    <tr>
+        <th>User name</th>
+        <th>Name</th>
+        <th>Last name</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td><a th:href="@{/users/} + ${user.id} + @{/items}" th:text="${user.username}">Username</a></td>
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.lastName}">Last Name</td>
+    </tr>
+</table>
+</body>
+</html>

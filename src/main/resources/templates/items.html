@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Items</title>
+</head>
+<body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
+<table>
+    <tr>
+        <th>Item code</th>
+        <th>Item type</th>
+        <!--<th>Quantity</th>-->
+        <th>Belongs to</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.inventoryCode}">Item code</td>
+        <td th:text="${item.type}">Item type</td>
+        <td th:text="${item.user}">Belongs to</td>
+        <td>
+            <form th:action="@{/items/} + ${item.id}" th:method="delete">
+                <input type="submit" value="Delete" name="delete" />
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/items/} + ${item.id}" th:method="put">
+                <select th:field="*{item.user}">
+                    <option th:each="user : ${users}"
+                            th:value="${user}"
+                            th:text="${user.username}">Username</option>
+                </select>
+                <input type="submit" value="Assign" name="assign" />
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>
