@@ -5,15 +5,41 @@
     <title>User Registration</title>
 </head>
 <body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
 <div sec:authorize="isAuthenticated()">
     <meta http-equiv="refresh" content="0;url=/" />
 </div>
 <form th:action="@{/register}" th:object="${user}" method="post">
-    <div><label> User Name : <input type="text" th:field="*{username}" /> </label></div>
-    <div><label> Password: <input type="password" th:field="*{password}" /> </label></div>
-    <div><label> Name : <input type="text" th:field="*{name}" /> </label></div>
-    <div><label> Last Name : <input type="text" th:field="*{lastName}" /> </label></div>
-    <div><input type="submit" value="Register"/></div>
+    <table>
+        <tr>
+            <td>User Name:</td>
+            <td><input type="text" th:field="*{username}" /></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" th:field="*{password}" /></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td><input type="text" th:field="*{lastName}" /></td>
+            <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

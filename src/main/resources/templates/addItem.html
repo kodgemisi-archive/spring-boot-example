@@ -5,11 +5,29 @@
     <title>Add Item</title>
 </head>
 <body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/items">Items</a></li>
+    </ul>
+</nav>
 
 <form th:action="@{/items}" th:object="${itemForm}" th:method="post">
-    <div><label> Item Type: <input type="text" th:field="*{itemType}" /> </label></div>
-    <div><label> Amount: <input type="text" th:field="*{amount}" /> </label></div>
-    <div><input type="submit" value="Add"/></div>
+    <table>
+        <tr>
+            <td>Item Type:</td>
+            <td><input type="text" th:field="*{itemType}" /></td>
+            <td th:if="${#fields.hasErrors('itemType')}" th:errors="*{itemType}">Item Type Error</td>
+        </tr>
+        <tr>
+            <td>Amount:</td>
+            <td><input type="text" th:field="*{amount}" /></td>
+            <td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</td>
+        </tr>
+        <tr>
+            <td><button type="add">Add</button></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

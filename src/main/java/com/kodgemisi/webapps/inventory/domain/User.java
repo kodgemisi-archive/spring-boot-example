@@ -1,6 +1,9 @@
 package com.kodgemisi.webapps.inventory.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -14,15 +17,21 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private long id;
 
+    @NotEmpty
+    @Size(min=3, max=20)
     @Column(name = "username", nullable = false)
     private String username;
 
+    @NotEmpty
+    @Size(min=6, max=20)
     @Column(name = "password", nullable = false)
     private String password;
 
+    @NotEmpty
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotEmpty
     @Column(name = "lastName", nullable = false)
     private String lastName;
 

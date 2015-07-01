@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 /**
  * Created by sedat on 29.06.2015.
@@ -32,7 +33,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String handleJobCreateForm(@ModelAttribute("user") User user) {
+    public String handleRegisterForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "register";
+
         userService.addUser(user);
         return "redirect:/";
     }
@@ -44,6 +48,9 @@ public class UserController {
 
     @RequestMapping(value = "/users/{id}/items", method = RequestMethod.GET)
     public ModelAndView getUserPage(@PathVariable Long id) {
-        return new ModelAndView("userItems" ,"items", userService.numberOfItemsByType(id));
+        if (null == userService.getUserById(id))
+            throw new NoSuchElementException("User with id:" + id + " not found");
+        else
+            return new ModelAndView("userItems" ,"items", userService.numberOfItemsByType(id));
     }
 }
