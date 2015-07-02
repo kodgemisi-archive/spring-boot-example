@@ -20,6 +20,7 @@
             <td>User Name:</td>
             <td><input type="text" th:field="*{username}" /></td>
             <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
+            <td th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">Global Error</td>
         </tr>
         <tr>
             <td>Password:</td>

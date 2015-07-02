@@ -1,14 +1,13 @@
 package com.kodgemisi.webapps.inventory.controller;
 
 import com.kodgemisi.webapps.inventory.domain.User;
+import com.kodgemisi.webapps.inventory.domain.validator.RegisterValidator;
 import com.kodgemisi.webapps.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -20,11 +19,18 @@ import java.util.NoSuchElementException;
 
 @Controller
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
+    private final RegisterValidator registerValidator;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RegisterValidator registerValidator) {
         this.userService = userService;
+        this.registerValidator = registerValidator;
+    }
+
+    @InitBinder()
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(registerValidator);
     }
 
     @RequestMapping("/register")

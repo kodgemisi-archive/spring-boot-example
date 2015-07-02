@@ -47,8 +47,8 @@ public class Application implements CommandLineRunner {
         user1.setLastName("Gökcen");
         user1.setItems(set1);
 
-        User user2 = new User("hola", "hoo123");
-        user2.setName("Hola");
+        User user2 = new User("hool", "hoo123");
+        user2.setName("Hool");
         user2.setLastName("Gökcen");
         user2.setItems(set2);
 

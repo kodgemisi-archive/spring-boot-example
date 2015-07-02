@@ -39,13 +39,14 @@ public class ItemController {
     public ModelAndView getItemsPage() {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("items", itemService.getItems());
-        model.put("users", userService.getUsers());
+        model.put("usernames", userService.getUsernames());
+        model.put("assignForm", new ItemAssignForm());
         return new ModelAndView("items", model);
     }
 
     @RequestMapping(value = "/items/{id}", method = RequestMethod.PUT)
-    public String handleItemAssign(@ModelAttribute("item") Item item, @PathVariable("id") long id) {
-        itemService.assignItem(item.getUser(), id);
+    public String handleItemAssign(@ModelAttribute("assignForm") ItemAssignForm form, @PathVariable("id") long id) {
+        itemService.assignItem(form.getUsername(), id);
         return "redirect:/items";
     }
 

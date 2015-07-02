@@ -4,6 +4,11 @@ import com.kodgemisi.webapps.inventory.domain.Item;
 import com.kodgemisi.webapps.inventory.domain.User;
 import com.kodgemisi.webapps.inventory.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,7 +18,7 @@ import java.util.*;
  */
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
     @Autowired
@@ -75,5 +80,18 @@ public class UserServiceImpl implements UserService {
         }
 
         return usernames;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = getUserByUsername(username);
+        List<SimpleGrantedAuthority> auth = (List<SimpleGrantedAuthority>) user.getAuthorities();
+
+        if (null == user) {
+            throw new UsernameNotFoundException("User with username: " + username + " not found.");
+        } else {
+            return new org.springframework.security.core.userdetails.User(username, user.getPassword(),
+                    auth);
+        }
     }
 }

@@ -17,7 +17,7 @@ public interface ItemService {
 
     Iterable<Item> getItems();
 
-    Item assignItem(User user, long itemId);
+    Item assignItem(String username, long itemId);
 
     void deleteItemById(long id);
 }

@@ -53,7 +53,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item assignItem(User user, long itemId) {
+    public Item assignItem(String username, long itemId) {
+        User user = userService.getUserByUsername(username);
         Item item = getItemById(itemId);
         Set<Item> itemList = user.getItems();
         item.setUser(user);
