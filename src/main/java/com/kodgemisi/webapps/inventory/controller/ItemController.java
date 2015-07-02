@@ -26,8 +26,8 @@ import java.util.Objects;
 
 @Controller
 public class ItemController {
-    private ItemService itemService;
-    private UserService userService;
+    private final ItemService itemService;
+    private final UserService userService;
 
     @Autowired
     public ItemController(ItemService itemService, UserService userService) {

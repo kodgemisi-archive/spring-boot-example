@@ -9,10 +9,19 @@
         <li><a href="/">Home</a></li>
         <li><a href="/users">Users</a></li>
         <li><a href="/items">Items</a></li>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/users/} + ${user.id} + @{/items}">My Items</a>
+        </li>
     </ul>
 </nav>
 
-<h1>Welcome!</h1>
+<div sec:authorize="isAnonymous()">
+    <h1>Welcome!</h1>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <h1 th:text="'Welcome, ' + ${user.username} + '!'"></h1>
+</div>
 
 <div sec:authorize="isAnonymous()">
     <p>Click <a th:href="@{/login}">here</a> to login.</p>
