@@ -25,15 +25,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Item getItemByCode(String code) {
-        Iterator iterator = itemRepository.findAll().iterator();
-
-        while (iterator.hasNext()) {
-            Item item = (Item) iterator.next();
-            if (item.getInventoryCode().equals(code))
-                return item;
-        }
-
-        return null;
+        return itemRepository.findByInventoryCode(code);
     }
 
     public Item getItemById(long id) {

@@ -13,7 +13,7 @@ public class Item {
     @Column(name = "id", nullable = false, updatable = false)
     private long id;
 
-    @Column(name = "code", nullable = false, updatable = false)
+    @Column(name = "code", nullable = false, updatable = false, unique = true)
     private String inventoryCode;
     
     @Column(name = "type", nullable = false)

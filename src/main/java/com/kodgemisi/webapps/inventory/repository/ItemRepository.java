@@ -1,14 +1,13 @@
 package com.kodgemisi.webapps.inventory.repository;
 
 import com.kodgemisi.webapps.inventory.domain.Item;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Created by sedat on 26.06.2015.
+ * Created by sedat on 26.06.2015
  */
 
-@RepositoryRestResource(collectionResourceRel = "items", path = "items")
-public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
+public interface ItemRepository extends CrudRepository<Item, Long> {
+    Item findByInventoryCode(String inventoryCode);
 }

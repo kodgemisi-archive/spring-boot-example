@@ -32,15 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User getUserByUsername(String username) {
-        Iterator iterator = userRepository.findAll().iterator();
-
-        while (iterator.hasNext()) {
-            User user = (User) iterator.next();
-            if (user.getUsername().equalsIgnoreCase(username))
-                return user;
-        }
-
-        return null;
+        return userRepository.findByUsername(username);
     }
 
     @Override
