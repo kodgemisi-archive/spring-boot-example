@@ -5,17 +5,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * Created by sedat on 30.06.2015.
- */
-
 public class ItemAddForm {
     @NotEmpty
-    @Size(min=2, max=50)
+    @Size(min = 2, max = 20)
     private String itemType;
 
     @NotNull
-    private int amount = 1; //default
+    private int amount = 1;
 
     public String getItemType() {
         return itemType;

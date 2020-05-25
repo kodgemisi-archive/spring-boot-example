@@ -9,10 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
-/**
- * Created by sedat on 26.06.2015.
- */
-
 @Controller
 public class LoginController {
     @PreAuthorize("isAnonymous()")
@@ -20,5 +16,4 @@ public class LoginController {
     public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
         return new ModelAndView("login", "error", error);
     }
-
 }

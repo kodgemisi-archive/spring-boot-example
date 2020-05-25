@@ -1,9 +1,7 @@
 package com.kodgemisi.webapps.inventory.controller;
 
-import com.kodgemisi.webapps.inventory.domain.Item;
 import com.kodgemisi.webapps.inventory.domain.ItemAddForm;
 import com.kodgemisi.webapps.inventory.domain.ItemAssignForm;
-import com.kodgemisi.webapps.inventory.domain.User;
 import com.kodgemisi.webapps.inventory.service.ItemService;
 import com.kodgemisi.webapps.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-/**
- * Created by sedat on 29.06.2015.
- */
 
 @Controller
 public class ItemController {
+
     private final ItemService itemService;
     private final UserService userService;
 
@@ -33,21 +27,6 @@ public class ItemController {
     public ItemController(ItemService itemService, UserService userService) {
         this.itemService = itemService;
         this.userService = userService;
-    }
-
-    @RequestMapping("/items")
-    public ModelAndView getItemsPage() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("items", itemService.getItems());
-        model.put("usernames", userService.getUsernames());
-        model.put("assignForm", new ItemAssignForm());
-        return new ModelAndView("items", model);
-    }
-
-    @RequestMapping(value = "/items/{id}", method = RequestMethod.PUT)
-    public String handleItemAssign(@ModelAttribute("assignForm") ItemAssignForm form, @PathVariable("id") long id) {
-        itemService.assignItem(form.getUsername(), id);
-        return "redirect:/items";
     }
 
     @RequestMapping("/items/add")
@@ -62,11 +41,35 @@ public class ItemController {
 
         itemService.addItem(form);
         return "redirect:/items";
+
     }
 
-    @RequestMapping(params="delete", value = "/items/{id}", method = RequestMethod.DELETE)
+    /*@RequestMapping(value = "/items")
+    public ModelAndView getItemsPage(){
+        Map<String,Object> model = new HashMap<String,Object>();
+        model.put("items", itemService.getItems());
+        model.put("usernames", userService.getUsernames());
+        model.put("assignForm", new ItemAssignForm());
+        return new ModelAndView("items", model);
+    }*/
+    @RequestMapping("/items")
+    public ModelAndView getItemsPage() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("items", itemService.getItems());
+        model.put("usernames", userService.getUsernames());
+        model.put("assignForm", new ItemAssignForm());
+        return new ModelAndView("items", model);
+    }
+
+    @RequestMapping(params = "delete", value = "/items/{id}", method = RequestMethod.DELETE)
     public String handleItemDelete(@PathVariable Long id) {
         itemService.deleteItemById(id);
+        return "redirect:/items";
+    }
+
+    @RequestMapping(value = "/items/{id}", method = RequestMethod.PUT)
+    public String handleItemAssign(@ModelAttribute("user") ItemAssignForm form, @PathVariable("id") long id) {
+        itemService.assingItem(form.getUsername(), id);
         return "redirect:/items";
     }
 }

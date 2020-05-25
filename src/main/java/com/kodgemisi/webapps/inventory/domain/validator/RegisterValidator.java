@@ -7,12 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-/**
- * Created by sedat on 02.07.2015.
- */
-
 @Component
 public class RegisterValidator implements Validator {
+
     private final UserService userService;
 
     @Autowired
@@ -31,9 +28,10 @@ public class RegisterValidator implements Validator {
         validateUsername(errors, form);
     }
 
-    private void validateUsername(Errors errors, User form) {
+    public void validateUsername(Errors errors, User form) {
         if (userService.getUserByUsername(form.getUsername()) != null) {
             errors.reject("username.exists", "User with this username already exists");
         }
     }
+
 }

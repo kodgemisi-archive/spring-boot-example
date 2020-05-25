@@ -1,5 +1,6 @@
 package com.kodgemisi.webapps.inventory.controller;
 
+
 import com.kodgemisi.webapps.inventory.domain.User;
 import com.kodgemisi.webapps.inventory.domain.validator.RegisterValidator;
 import com.kodgemisi.webapps.inventory.service.UserService;
@@ -13,10 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
-/**
- * Created by sedat on 29.06.2015.
- */
-
 @Controller
 public class UserController {
     private final UserService userService;
@@ -24,13 +21,8 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, RegisterValidator registerValidator) {
-        this.userService = userService;
         this.registerValidator = registerValidator;
-    }
-
-    @InitBinder()
-    public void initBinder(WebDataBinder binder) {
-        binder.addValidators(registerValidator);
+        this.userService = userService;
     }
 
     @RequestMapping("/register")
@@ -40,9 +32,10 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String handleRegisterForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            System.out.println("Binding error" + bindingResult.toString());
             return "register";
-
+        }
         userService.addUser(user);
         return "redirect:/";
     }
@@ -52,11 +45,16 @@ public class UserController {
         return new ModelAndView("users", "users", userService.getUsers());
     }
 
-    @RequestMapping(value = "/users/{id}/items", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{id}/items")
     public ModelAndView getUserPage(@PathVariable Long id) {
         if (null == userService.getUserById(id))
-            throw new NoSuchElementException("User with id:" + id + " not found");
+            throw new NoSuchElementException("User with id: " + id + " not found");
         else
-            return new ModelAndView("userItems" ,"items", userService.numberOfItemsByType(id));
+            return new ModelAndView("userItems", "items", userService.numberOfItemsByType(id));
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(registerValidator);
     }
 }

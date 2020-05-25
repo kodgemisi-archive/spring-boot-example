@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Item</title>
 </head>
@@ -12,20 +11,26 @@
     </ul>
 </nav>
 
-<form th:action="@{/items}" th:object="${itemForm}" th:method="post">
+<form th:action="@{/items}" th:method="post" th:object="${itemForm}">
     <table>
         <tr>
             <td>Item Type:</td>
-            <td><input type="text" th:field="*{itemType}" /></td>
-            <td th:if="${#fields.hasErrors('itemType')}" th:errors="*{itemType}">Item Type Error</td>
+            <td><label>
+                <input th:field="*{itemType}" type="text"/>
+            </label></td>
+            <td th:errors="*{itemType}" th:if="${#fields.hasErrors('itemType')}">Item Type Error</td>
         </tr>
         <tr>
             <td>Amount:</td>
-            <td><input type="text" th:field="*{amount}" /></td>
-            <td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</td>
+            <td><label>
+                <input th:field="*{amount}" type="text"/>
+            </label></td>
+            <td th:errors="*{amount}" th:if="${#fields.hasErrors('amount')}">Amount Error</td>
         </tr>
         <tr>
-            <td><button type="add">Add</button></td>
+            <td>
+                <button type="submit">Add</button>
+            </td>
         </tr>
     </table>
 </form>

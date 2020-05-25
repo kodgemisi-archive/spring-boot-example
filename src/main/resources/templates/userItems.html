@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+>
 <head>
     <title>User</title>
 </head>
@@ -11,10 +11,6 @@
         <li><a href="/users">Users</a></li>
     </ul>
 </nav>
-
-<!--<div sec:authorize="isAnonymous()">-->
-    <!--<meta http-equiv="refresh" content="0;url=/" />-->
-<!--</div>-->
 
 <div th:each="entry : ${items}" th:with="itemList=${entry.value}">
     <p><strong th:text="${entry.key} + ': ' + ${itemList.size()}"></strong></p>
