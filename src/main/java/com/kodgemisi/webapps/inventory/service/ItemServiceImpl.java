@@ -21,12 +21,11 @@ public class ItemServiceImpl implements ItemService {
         this.userService = userService;
     }
 
-
     @Override
     public void addItem(ItemAddForm form) {
 
         for (int i = 0; i < form.getAmount(); i++) {
-            String inventoryCode = Long.toHexString(Double.doubleToLongBits(Math.random())).substring(0, 5);
+            String inventoryCode = Long.toHexString(Double.doubleToLongBits(Math.random())).substring(0, 15);
             Item item = new Item(inventoryCode, form.getItemType());
             itemRepository.save(item);
         }
