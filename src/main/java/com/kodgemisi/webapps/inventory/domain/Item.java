@@ -2,10 +2,6 @@ package com.kodgemisi.webapps.inventory.domain;
 
 import javax.persistence.*;
 
-/**
- * Created by sedat on 26.06.2015.
- */
-
 @Entity
 public class Item {
     @Id
@@ -15,11 +11,11 @@ public class Item {
 
     @Column(name = "code", nullable = false, updatable = false, unique = true)
     private String inventoryCode;
-    
+
     @Column(name = "type", nullable = false)
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -27,8 +23,8 @@ public class Item {
 
     }
 
-    public Item(String inventoryCode, String type) {
-        this.inventoryCode = inventoryCode;
+    public Item(String inventotyCode, String type) {
+        this.inventoryCode = inventotyCode;
         this.type = type;
     }
 
@@ -59,4 +55,14 @@ public class Item {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", inventoryCode='" + inventoryCode + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
 }

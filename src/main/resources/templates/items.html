@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+>
 <head>
     <title>Items</title>
 </head>
@@ -8,10 +8,9 @@
 <nav role="navigation">
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/users">Users</a></li>
+        <li><a href="/items/add">Add item</a></li>
     </ul>
 </nav>
-
 <table>
     <tr>
         <th></th>
@@ -23,26 +22,24 @@
     <tr th:each="item : ${items}">
         <td>
             <form th:action="@{/items/} + ${item.id}" th:method="delete">
-                <input type="submit" value="Delete" name="delete" />
+                <input name="delete" type="submit" value="Delete"/>
             </form>
         </td>
         <td th:text="${item.inventoryCode}">Item code</td>
         <td th:text="${item.type}">Item type</td>
         <td th:text="${item.user}">Belongs to</td>
         <td>
-            <form th:action="@{/items/} + ${item.id}" th:method="put">
+            <form th:action="@{/items/{id}(id=${item.id})}" th:method="put">
                 <select th:field="*{assignForm.username}">
                     <option th:each="username : ${usernames}"
-                            th:value="${username}"
-                            th:text="${username}">Username</option>
+                            th:text="${username}"
+                            th:value="${username}">
+                    </option>
                 </select>
-                <input type="submit" value="Assign" name="assign" />
+                <button type="submit">Assign</button>
             </form>
         </td>
     </tr>
 </table>
-
-
-
 </body>
 </html>

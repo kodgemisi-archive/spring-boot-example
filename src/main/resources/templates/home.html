@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Inventory Home</title>
 </head>
@@ -28,7 +29,7 @@
     <p>Click <a th:href="@{/register}">here</a> to register.</p>
 </div>
 <div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
+    <form method="post" th:action="@{/logout}">
         <input type="submit" value="Log Out"/>
     </form>
     <p>Click <a th:href="@{/items}">here</a> to see items.</p>

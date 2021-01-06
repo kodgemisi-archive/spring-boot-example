@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spring Security Example </title>
 </head>
 <body>
 <div sec:authorize="isAuthenticated()">
-    <meta http-equiv="refresh" content="0;url=/home" />
+    <meta content="url=/home" http-equiv="refresh"/>
 </div>
 <div th:if="${param.error}">
     Invalid username and password.
@@ -14,10 +14,10 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<form method="post" th:action="@{/login}">
+    <div><label> User Name : <input name="username" type="text"/> </label></div>
+    <div><label> Password: <input name="password" type="password"/> </label></div>
+    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
     <div><input type="submit" value="Sign In"/></div>
 </form>
 </body>

@@ -8,17 +8,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-/**
- * Created by sedat on 26.06.2015.
- */
-
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+
     private final UserRepository userRepository;
 
     @Autowired
@@ -26,29 +22,45 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userRepository = userRepository;
     }
 
+
     @Override
-    public User getUserById(long id) {
-        return userRepository.findOne(id);
+    public void addUser(User user) {
+        userRepository.save(user);
     }
 
+    @Override
+    public Iterable<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public List<String> getUsernames() {
+        List<String> usernames = new ArrayList<String>();
+
+        for (User user : getUsers()) {
+            usernames.add(user.getUsername());
+        }
+        return usernames;
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public User getUserById(long id) {
+        if (userRepository.findById(id).isPresent()) {
+            return userRepository.findById(id).get();
+        } else return null;
     }
 
-    public Iterable<User> getUsers() {
-        return userRepository.findAll();
-    }
-
+    @Override
     public Map<String, List<Item>> numberOfItemsByType(long userId) {
         Map<String, List<Item>> map = new HashMap<String, List<Item>>();
         Set<Item> items = getUserById(userId).getItems();
 
-        for (Item item: items) {
+        for (Item item : items) {
             List<Item> itemList = new ArrayList<Item>();
             String key = item.getType().toLowerCase();
 
@@ -58,20 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             itemList.add(item);
             map.put(key, itemList);
         }
-
         return map;
-    }
-
-    public List<String> getUsernames() {
-        List<String> usernames = new ArrayList<String>();
-        Iterator iterator = getUsers().iterator();
-
-        while (iterator.hasNext()) {
-            User user = (User) iterator.next();
-            usernames.add(user.getUsername());
-        }
-
-        return usernames;
     }
 
     @Override
@@ -84,5 +83,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             return user;
         }
+
     }
 }

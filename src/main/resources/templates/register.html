@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+>
 <head>
     <title>User Registration</title>
 </head>
@@ -11,34 +11,33 @@
     </ul>
 </nav>
 
-<div sec:authorize="isAuthenticated()">
-    <meta http-equiv="refresh" content="0;url=/" />
-</div>
-<form th:action="@{/register}" th:object="${user}" method="post">
+<form method="post" th:action="@{/register}" th:object="${user}">
     <table>
         <tr>
             <td>User Name:</td>
-            <td><input type="text" th:field="*{username}" /></td>
-            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
-            <td th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">Global Error</td>
+            <td><input th:field="*{username}" type="text"/></td>
+            <td th:errors="*{username}" th:if="${#fields.hasErrors('username')}">Username Error</td>
+            <td th:errors="*{global}" th:if="${#fields.hasGlobalErrors()}">Global Error</td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" th:field="*{password}" /></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+            <td><input th:field="*{password}" type="password"/></td>
+            <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error</td>
         </tr>
         <tr>
             <td>Name:</td>
-            <td><input type="text" th:field="*{name}" /></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            <td><input th:field="*{name}" type="text"/></td>
+            <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
         </tr>
         <tr>
             <td>Last Name:</td>
-            <td><input type="text" th:field="*{lastName}" /></td>
-            <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
+            <td><input th:field="*{lastName}" type="text"/></td>
+            <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">Last Name Error</td>
         </tr>
         <tr>
-            <td><button type="submit">Submit</button></td>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
         </tr>
     </table>
 </form>
